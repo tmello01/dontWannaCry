@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="SeniorProject.mainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SeniorProject"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1000">
+	<Grid>
+		<Label x:Name="label" Content="Your files have been encrypted" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="114" Width="1000" FontSize="72" />
+		<Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" Height="273" Width="315"/>
+
+	</Grid>
+</UserControl>
