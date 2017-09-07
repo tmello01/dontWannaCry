@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Security.Cryptography;
+
 
 namespace EncryptionLogic
 {
@@ -13,7 +12,7 @@ namespace EncryptionLogic
 	    private static Random random = new Random();
 	    public string generate32BitKey()
 	    {
-		    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
 			try
 		    {
 			    return new string(Enumerable.Repeat(chars, 32)
@@ -22,6 +21,7 @@ namespace EncryptionLogic
 		    catch (Exception e)
 		    {
 			    MessageBox.Show(e.Message);
+				
 		    }
 		    return null;
 	    }
