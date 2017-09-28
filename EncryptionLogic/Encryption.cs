@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Security.Cryptography;
+using System.Runtime.InteropServices;
 
 
 namespace EncryptionLogic
@@ -31,9 +32,14 @@ namespace EncryptionLogic
 			DirectoryInfo d = new DirectoryInfo(filepath);
 		    foreach (var file in d.GetFiles())
 		    {
-			    
+			    Console.WriteLine();
 		    }
 		    return 1;
+	    }
+
+	    private void encryptFile()
+	    {
+		    
 	    }
     }
 }

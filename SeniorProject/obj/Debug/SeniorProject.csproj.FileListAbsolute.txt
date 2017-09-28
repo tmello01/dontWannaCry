@@ -16,3 +16,6 @@ C:\Users\Mello\Desktop\SeniorProject\SeniorProject\SeniorProject\obj\Debug\Senio
 C:\Users\Mello\Desktop\SeniorProject\SeniorProject\SeniorProject\obj\Debug\SeniorProject.csproj.GenerateResource.Cache
 C:\Users\Mello\Desktop\SeniorProject\SeniorProject\SeniorProject\obj\Debug\SeniorProject.exe
 C:\Users\Mello\Desktop\SeniorProject\SeniorProject\SeniorProject\obj\Debug\SeniorProject.pdb
+C:\Users\Tyler\Desktop\Senior Project\SeniorProject\bin\Debug\SeniorProject.exe.config
+C:\Users\Tyler\Desktop\Senior Project\SeniorProject\obj\Debug\SeniorProject.exe
+C:\Users\Tyler\Desktop\Senior Project\SeniorProject\obj\Debug\SeniorProject.pdb
