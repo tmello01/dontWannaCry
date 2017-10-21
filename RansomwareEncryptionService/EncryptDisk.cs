@@ -7,8 +7,8 @@ using System.Text;
 
 namespace RansomwareEncryptionService
 {
-	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-	public class Service1 : IService1
+	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "EncryptDisk" in both code and config file together.
+	public class EncryptDisk : IEncryptDisk
 	{
 		public string GetData(int value)
 		{

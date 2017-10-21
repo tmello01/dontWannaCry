@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeniorProject", "SeniorProj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionLogic", "EncryptionLogic\EncryptionLogic.csproj", "{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RansomwareEncryptionService", "RansomwareEncryptionService\RansomwareEncryptionService.csproj", "{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
