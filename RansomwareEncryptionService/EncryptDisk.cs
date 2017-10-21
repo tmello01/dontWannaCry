@@ -10,22 +10,19 @@ namespace RansomwareEncryptionService
 	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "EncryptDisk" in both code and config file together.
 	public class EncryptDisk : IEncryptDisk
 	{
-		public string GetData(int value)
+		public bool encryptDisk()
 		{
-			return string.Format("You entered: {0}", value);
+			return false;
 		}
 
-		public CompositeType GetDataUsingDataContract(CompositeType composite)
+		public bool encryptDesktop()
 		{
-			if (composite == null)
-			{
-				throw new ArgumentNullException("composite");
-			}
-			if (composite.BoolValue)
-			{
-				composite.StringValue += "Suffix";
-			}
-			return composite;
+			return false;
+		}
+
+		public string getLastEncryptedFile()
+		{
+			return false;
 		}
 	}
 }
