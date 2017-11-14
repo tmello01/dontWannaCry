@@ -32,12 +32,12 @@ namespace SeniorProject
 				}
 				_timeSpan = _timeSpan.Add(TimeSpan.FromSeconds(-1));
 			}, Application.Current.Dispatcher);
-			key = _objEncrpytion.generate32BitKey();
-			sendKey();
+			//key = _objEncrpytion.generate32BitKey();
+			//sendKey();
 			
 		}
 
-		private int sendKey()
+		private void sendKey()
 		{
 			try
 			{
@@ -48,12 +48,11 @@ namespace SeniorProject
 				message.Body = key;
 				SmtpClient smtp = new SmtpClient(GetIP());
 				smtp.Send(message);
-				return 1;
 			}
 			catch (Exception e)
 			{
 				MessageBox.Show(e.Message);
-				return 0;
+				MessageBox.Show(e.InnerException.ToString());
 			}
 		}
 

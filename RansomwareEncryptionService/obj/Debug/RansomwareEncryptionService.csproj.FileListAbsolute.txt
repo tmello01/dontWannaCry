@@ -1,0 +1,6 @@
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\RansomwareEncryptionService\bin\Debug\RansomwareEncryptionService.dll.config
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\RansomwareEncryptionService\bin\Debug\RansomwareEncryptionService.dll
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\RansomwareEncryptionService\bin\Debug\RansomwareEncryptionService.pdb
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\RansomwareEncryptionService\obj\Debug\RansomwareEncryptionService.csprojResolveAssemblyReference.cache
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\RansomwareEncryptionService\obj\Debug\RansomwareEncryptionService.dll
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\RansomwareEncryptionService\obj\Debug\RansomwareEncryptionService.pdb
