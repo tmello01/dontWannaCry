@@ -32,7 +32,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,6 +46,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SeniorProjectStartup.cs" />
@@ -49,11 +54,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EncryptionLogic\EncryptionLogic.csproj">
       <Project>{204790d0-f6ad-462e-a7df-6bdd77d7a71e}</Project>
       <Name>EncryptionLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SeniorProject\SeniorProjectUI.csproj">
+      <Project>{ce477a63-280d-4642-a820-431123efd9e4}</Project>
+      <Name>SeniorProjectUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

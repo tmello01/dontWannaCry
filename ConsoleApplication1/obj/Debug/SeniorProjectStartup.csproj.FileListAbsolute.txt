@@ -6,3 +6,5 @@ C:\Users\Mello\Desktop\SeniorProject\SeniorProject\ConsoleApplication1\bin\Debug
 C:\Users\Mello\Desktop\SeniorProject\SeniorProject\ConsoleApplication1\bin\Debug\EncryptionLogic.pdb
 C:\Users\Mello\Desktop\SeniorProject\SeniorProject\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 C:\Users\Mello\Desktop\SeniorProject\SeniorProject\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\ConsoleApplication1\bin\Debug\SeniorProject.exe
+C:\Users\Mello\Desktop\SeniorProject\SeniorProject\ConsoleApplication1\bin\Debug\SeniorProject.pdb

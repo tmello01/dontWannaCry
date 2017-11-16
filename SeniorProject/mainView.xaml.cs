@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using EncryptionLogic;
 using System.Net.Mail;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 
 namespace SeniorProject
 {
@@ -69,5 +70,10 @@ namespace SeniorProject
 			throw new Exception("Local IP Address Not Found!");
 		}
 
+		private void button_Click(object sender, RoutedEventArgs e)
+		{
+			Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(decryptBox.Text, 0, 50000);
+			Encryption.decryptAllFiles(key);
+		}
 	}
 }

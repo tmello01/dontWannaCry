@@ -12,7 +12,7 @@
 		<Label x:Name="tbTime" Content="48 Hours 0 Minutes" HorizontalAlignment="Left" Margin="188,104,0,0" VerticalAlignment="Top" Height="124" Width="634" FontSize="72"/>
 		<Label x:Name="label2" Content="When the ransom has been paid, you can&#xD;&#xA;    enter the 32 digit decrypt code here:" HorizontalAlignment="Left" Margin="324,233,0,0" VerticalAlignment="Top" Height="62" Width="388" FontSize="20"/>
 		<TextBox x:Name="decryptBox" HorizontalAlignment="Left" Height="27" Margin="380,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
-		<Button x:Name="button" Content="Decrypt" HorizontalAlignment="Left" Margin="443,342,0,0" VerticalAlignment="Top" Width="113" Height="25"/>
+		<Button x:Name="button" Content="Decrypt" HorizontalAlignment="Left" Margin="443,342,0,0" VerticalAlignment="Top" Width="113" Height="25" Click="button_Click"/>
 
 	</Grid>
 </UserControl>
