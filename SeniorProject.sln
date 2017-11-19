@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeniorProjectUI", "SeniorPr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionLogic", "EncryptionLogic\EncryptionLogic.csproj", "{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RansomwareEncryptionService", "RansomwareEncryptionService\RansomwareEncryptionService.csproj", "{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeniorProjectStartup", "ConsoleApplication1\SeniorProjectStartup.csproj", "{42F1B389-E693-4E14-B88D-0F127AD6D490}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,14 +21,6 @@ Global
 		{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{204790D0-F6AD-462E-A7DF-6BDD77D7A71E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0F93388-C05C-49D0-B268-74FAFEDB3D8F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42F1B389-E693-4E14-B88D-0F127AD6D490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42F1B389-E693-4E14-B88D-0F127AD6D490}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42F1B389-E693-4E14-B88D-0F127AD6D490}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42F1B389-E693-4E14-B88D-0F127AD6D490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

