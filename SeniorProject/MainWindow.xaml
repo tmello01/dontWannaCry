@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SeniorProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="1200" WindowState="Maximized" WindowStyle="None" Closing="Window_Closing">
-	<Grid>
+	<Grid Background="Red">
 		<local:mainView HorizontalAlignment="Center"  VerticalAlignment="Center" Height="520" Width="992"/>
 
 	</Grid>

